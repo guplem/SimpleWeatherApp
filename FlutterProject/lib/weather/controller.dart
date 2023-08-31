@@ -20,12 +20,6 @@ class WeatherController extends GetxController {
     _getWeatherForLocation(location);
   }
 
-  // Refreshes weather data
-  void refreshWeather() {
-    if (_weatherLocation == null) return;
-    _getWeatherForLocation(_weatherLocation!);
-  }
-
   // Gets weather data from https://open-meteo.com
   _getWeatherForLocation(Location location) async {
     Dio dio = Dio();
