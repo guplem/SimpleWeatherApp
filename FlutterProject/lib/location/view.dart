@@ -17,7 +17,7 @@ class _LocationViewState extends State<LocationView> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: ThemeCustom.paddingStandard,
+      padding: EdgeInsets.all(12),
       child: Builder(
         builder: (context) {
           return SearchAnchor.bar(
@@ -55,7 +55,7 @@ class _LocationViewState extends State<LocationView> {
 
   Iterable<Widget> getSuggestions(SearchController controller) {
     final String input = controller.value.text;
-    return locController.availableLocationNames().where((String name) => name.contains(input)).map(
+    return locController.availableLocationNames().where((String name) => name.toLowerCase().contains(input.toLowerCase())).map(
           (String filteredName) => ListTile(
             leading: const Icon(Icons.location_on_sharp),
             title: Text(filteredName),

@@ -17,30 +17,30 @@ class WeatherView {
             padding: ThemeCustom.paddingInnerCard,
             child: Row(
               children: [
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 Text("${weatherController.weather!.times[i].hour.toString().padLeft(2, '0')}:${weatherController.weather!.times[i].minute.toString().padLeft(2, '0')}", style: ThemeCustom.textTheme(context).titleMedium),
                 const Spacer(),
                 Column(
                   children: [
-                    Icon(Icons.water_drop),
+                    const Icon(Icons.water_drop),
                     Text("${weatherController.weather!.precipitations[i]}mm"),
                   ],
                 ),
-                SizedBox(width: 20),
+                const SizedBox(width: 20),
                 Column(
                   children: [
-                    Icon(Icons.cloudy_snowing),
+                    const Icon(Icons.cloudy_snowing),
                     Text("${weatherController.weather!.precipitationProbabilities[i]}%"),
                   ],
                 ),
-                SizedBox(width: 20),
+                const SizedBox(width: 20),
                 Column(
                   children: [
-                    Icon(Icons.sunny),
+                    const Icon(Icons.sunny),
                     Text("${weatherController.weather!.temperatures[i]}ºC"),
                   ],
                 ),
-                SizedBox(width: 5),
+                const SizedBox(width: 5),
               ],
             ),
           ),
