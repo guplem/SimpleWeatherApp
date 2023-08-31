@@ -1,15 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:weather_app/location/controller.dart';
 
 import '../location/view.dart';
 
 class HubScreen extends StatelessWidget {
-  const HubScreen({super.key});
+  HubScreen({super.key});
+
+  final LocationController locController = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: const LocationView(),
+        child: Column(
+          children: [
+            const LocationView(),
+            const Text("Selected Location:"),
+            Obx(() => Text(locController.selectedLocation?.name ?? "No location selected")),
+          ],
+        ),
       ),
     );
   }

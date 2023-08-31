@@ -1,5 +1,8 @@
 import "package:flutter/material.dart";
+import "package:get/get.dart";
+import "package:get/get_navigation/src/root/get_material_app.dart";
 import "package:weather_app/hub/screen_view.dart";
+import "package:weather_app/location/controller.dart";
 import "package:weather_app/theme_custom.dart";
 
 Future<void> main() async {
@@ -20,12 +23,15 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
+    // // Initialize the controller
+    // LocationController();
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       // THEME
       theme: themeData,
       themeMode: themeData.brightness == Brightness.light ? ThemeMode.light : ThemeMode.dark,
@@ -33,7 +39,12 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       onGenerateTitle: (context) => "Weather App",
       // INITIAL ROUTE
-      home: const HubScreen(),
+      home: Builder(builder: (context) {
+        // Instantiate the controller using Get.put() to make it available for all "child" routes
+        Get.put(LocationController());
+
+        return HubScreen();
+      }),
     );
   }
 }

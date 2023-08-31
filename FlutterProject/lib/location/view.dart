@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:weather_app/location/controller.dart';
 import 'package:weather_app/theme_custom.dart';
 
@@ -11,20 +12,28 @@ class LocationView extends StatefulWidget {
 
 class _LocationViewState extends State<LocationView> {
   List<String> searchHistory = <String>[];
+  final LocationController locController = Get.find();
 
   @override
   Widget build(BuildContext context) {
-    return SearchAnchor.bar(
-      barHintText: "Search a location",
-      suggestionsBuilder: (BuildContext context, SearchController controller) {
-        if (controller.text.isEmpty) {
-          if (searchHistory.isNotEmpty) {
-            return getHistoryList(controller);
-          }
-          return <Widget>[Center(child: Text('No search history.', style: TextStyle(color: ThemeCustom.colorScheme(context).outline)))];
+    return Padding(
+      padding: ThemeCustom.paddingStandard,
+      child: Builder(
+        builder: (context) {
+          return SearchAnchor.bar(
+            barHintText: "Search a location",
+            suggestionsBuilder: (BuildContext context, SearchController controller) {
+              if (controller.text.isEmpty) {
+                if (searchHistory.isNotEmpty) {
+                  return getHistoryList(controller);
+                }
+                return <Widget>[Center(child: Text('No search history.', style: TextStyle(color: ThemeCustom.colorScheme(context).outline)))];
+              }
+              return getSuggestions(controller);
+            },
+          );
         }
-        return getSuggestions(controller);
-      },
+      ),
     );
   }
 
@@ -46,17 +55,17 @@ class _LocationViewState extends State<LocationView> {
 
   Iterable<Widget> getSuggestions(SearchController controller) {
     final String input = controller.value.text;
-    return LocationController.availableLocationNames().where((String name) => name.contains(input)).map(
+    return locController.availableLocationNames().where((String name) => name.contains(input)).map(
           (String filteredName) => ListTile(
-            leading: const Icon(Icons.add_location_rounded),
+            leading: const Icon(Icons.location_on_sharp),
             title: Text(filteredName),
-            trailing: IconButton(
-              icon: const Icon(Icons.call_missed),
-              onPressed: () {
-                controller.text = filteredName;
-                controller.selection = TextSelection.collapsed(offset: controller.text.length);
-              },
-            ),
+            // trailing: IconButton(
+            //   icon: const Icon(Icons.call_missed),
+            //   onPressed: () {
+            //     controller.text = filteredName;
+            //     controller.selection = TextSelection.collapsed(offset: controller.text.length);
+            //   },
+            // ),
             onTap: () {
               controller.closeView(filteredName);
               handleSelection(filteredName);
@@ -67,7 +76,7 @@ class _LocationViewState extends State<LocationView> {
 
   void handleSelection(String selectedLocation) {
     setState(() {
-      LocationController.updateSelectedLocationFromName(selectedLocation);
+      locController.updateSelectedLocationFromName(selectedLocation);
       if (searchHistory.length >= 5) {
         searchHistory.removeLast();
       }

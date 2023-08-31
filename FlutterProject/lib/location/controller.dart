@@ -5,34 +5,28 @@ import 'package:get/get.dart';
 import 'package:weather_app/location/data.dart';
 import 'package:weather_app/location/model.dart';
 
-class LocationController {
-  LocationController() {
-    instance = this; // Singleton pattern
-  }
-
-  static late final LocationController instance; // For the singleton pattern
-
+class LocationController extends GetxController {
   final _selectedLocation = Rx<Location?>(null);
 
-  static updateSelectedLocation(Location? location) {
-    instance._selectedLocation.value = location;
+  updateSelectedLocation(Location? location) {
+    _selectedLocation.value = location;
   }
 
-  static Location? get selectedLocation => instance._selectedLocation.value;
+  Location? get selectedLocation => _selectedLocation.value;
 
-  static List<Location> availableLocations() {
+  List<Location> availableLocations() {
     return locationData;
   }
 
-  static List<String> availableLocationNames() {
+  List<String> availableLocationNames() {
     return availableLocations().map((e) => e.name).toList();
   }
 
-  static Location locationFromName(String name) {
+  Location locationFromName(String name) {
     return availableLocations().firstWhere((element) => element.name == name);
   }
 
-  static void updateSelectedLocationFromName(String selectedLocation) {
+  void updateSelectedLocationFromName(String selectedLocation) {
     updateSelectedLocation(locationFromName(selectedLocation));
   }
 }
