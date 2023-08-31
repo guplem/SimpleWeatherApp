@@ -23,9 +23,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    // // Initialize the controller
-    // LocationController();
-
     super.initState();
   }
 

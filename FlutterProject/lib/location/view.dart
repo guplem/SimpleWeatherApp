@@ -59,13 +59,6 @@ class _LocationViewState extends State<LocationView> {
           (String filteredName) => ListTile(
             leading: const Icon(Icons.location_on_sharp),
             title: Text(filteredName),
-            // trailing: IconButton(
-            //   icon: const Icon(Icons.call_missed),
-            //   onPressed: () {
-            //     controller.text = filteredName;
-            //     controller.selection = TextSelection.collapsed(offset: controller.text.length);
-            //   },
-            // ),
             onTap: () {
               controller.closeView(filteredName);
               handleSelection(filteredName);
