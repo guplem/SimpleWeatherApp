@@ -1,9 +1,9 @@
 import "package:flutter/material.dart";
 import "package:get/get.dart";
-import "package:get/get_navigation/src/root/get_material_app.dart";
 import "package:weather_app/hub/screen_view.dart";
 import "package:weather_app/location/controller.dart";
 import "package:weather_app/theme_custom.dart";
+import "package:weather_app/weather/controller.dart";
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,6 +39,7 @@ class _MyAppState extends State<MyApp> {
       home: Builder(builder: (context) {
         // Instantiate the controller using Get.put() to make it available for all "child" routes
         Get.put(LocationController());
+        Get.put(WeatherController());
 
         return HubScreen();
       }),
